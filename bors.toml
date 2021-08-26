@@ -7,4 +7,3 @@ use_squash_merge = true
 pr_status = ["CheckActiveClusters"]
 timeout_sec = 300
 delete_merged_branches = true
-committer.name = "[bot] BorsNg"
