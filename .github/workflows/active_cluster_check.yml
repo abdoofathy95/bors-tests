@@ -1,0 +1,56 @@
+name: check-active-clusters
+
+on:
+  push:
+    paths:
+      - 'argocd/environments/dev/**'
+      - 'argocd/environments/qa/**'
+      - 'argocd/environments/prod/**'
+      - 'argocd/environments/*'
+    branches:
+      - master
+      - staging
+      - trying
+  pull_request:
+    paths:
+      - 'argocd/environments/dev/**'
+      - 'argocd/environments/qa/**'
+      - 'argocd/environments/prod/**'
+      - 'argocd/environments/*'
+    branches:
+      - master
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  check-active-clusters:
+    name: CheckActiveClusters
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Build
+        uses: technote-space/get-diff-action@v4.0.1
+        with:
+          PATTERNS: |
+            argocd/environments/qa/*
+            argocd/environments/qa/**
+            argocd/environments/prod/*
+            argocd/environments/prod/**
+          FORMAT: json
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with: 
+          python-version: '3.x'
+      - name: Python build cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/pip
+          key: ${{ hashFiles('check/requirements.txt') }}
+      - name: Install dependencies
+        run: pip install -r check/requirements.txt
+      - name: Check Active Clusters
+        run: python check/main.py
+        env:
+          ENDPOINT_SUFFIX: ${{ secrets.ENDPOINT_SUFFIX }}
