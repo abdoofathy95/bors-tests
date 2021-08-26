@@ -19,7 +19,7 @@ def test():
     if response.status_code == 400:
         sys.exit("Failed for unknown reason: %s" % (str(response.content)))
     if response.status_code == 200:
-        sys.exit("Success: %s" % (str(response.content)))
+        print("Success: %s" % (str(response.content)))
 
 
 if __name__ == '__main__':
