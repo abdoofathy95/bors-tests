@@ -31,7 +31,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Build
-        uses: technote-space/get-diff-action@v4.0.1
+        uses: technote-space/get-diff-action@v4.2.0
         with:
           PATTERNS: |
             argocd/environments/qa/*
@@ -39,6 +39,7 @@ jobs:
             argocd/environments/prod/*
             argocd/environments/prod/**
           FORMAT: json
+          BASE: refs/heads/master
       - name: Setup Python
         uses: actions/setup-python@v2
         with: 
