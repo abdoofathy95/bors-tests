@@ -2,21 +2,11 @@ name: check-active-clusters
 
 on:
   push:
-    paths:
-      - 'argocd/environments/dev/**'
-      - 'argocd/environments/qa/**'
-      - 'argocd/environments/prod/**'
-      - 'argocd/environments/*'
     branches:
       - master
       - staging
       - trying
   pull_request:
-    paths:
-      - 'argocd/environments/dev/**'
-      - 'argocd/environments/qa/**'
-      - 'argocd/environments/prod/**'
-      - 'argocd/environments/*'
     branches:
       - master
   # Allows you to run this workflow manually from the Actions tab
