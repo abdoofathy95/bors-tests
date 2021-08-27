@@ -36,6 +36,7 @@ def get_affected_regions_by_file_changes(affected_files, env):
     affected_clusters_by_region = {}
 
     for path in affected_files_res:
+        print(path)
         match = re.search('argocd/environments/%s/([^/]*)/([^/]*)' % env, path)
         if match and len(match.groups()) == 2:
             region = match.group(1)
