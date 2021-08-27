@@ -3,6 +3,7 @@ import sys
 import re
 import requests
 from requests import Session
+import json
 
 
 ENDPOINT = os.environ['ENDPOINT_SUFFIX']
@@ -15,9 +16,10 @@ def test():
     request = requests.Request(method='GET', url=url+ENDPOINT, headers={})
     prepared = request.prepare()
 
-    print(AFFECTED_FILES)
+    affected_files = json.loads(AFFECTED_FILES)
+    print(affected_files)
 
-    print(get_affected_regions_by_file_changes(AFFECTED_FILES, 'prod'))
+    print(get_affected_regions_by_file_changes(affected_files, 'prod'))
 
     session = Session()
     response = session.send(prepared)
@@ -29,13 +31,9 @@ def test():
 
 
 def get_affected_regions_by_file_changes(affected_files, env):
-    affected_files_res = []
-    if len(affected_files):
-        affected_files_str = affected_files.replace("'", "")
-        affected_files_res = affected_files_str.split(" ")
     affected_clusters_by_region = {}
 
-    for path in affected_files_res:
+    for path in affected_files:
         print(path)
         match = re.search('argocd/environments/%s/([^/]*)/([^/]*)' % env, path)
         if match and len(match.groups()) == 2:
