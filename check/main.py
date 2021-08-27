@@ -5,10 +5,10 @@ import requests
 from requests import Session
 
 
-# ENDPOINT = os.environ['ENDPOINT_SUFFIX']
-# AFFECTED_FILES = os.environ['AFFECTED_FILES']
-ENDPOINT = 'valid'
-AFFECTED_FILES = ["argocd/environments/prod/eu-central-1/1vapi-1/Dummy.md","argocd/environments/prod/eu-central-1/1vapi-2/Dummy.md"]
+ENDPOINT = os.environ['ENDPOINT_SUFFIX']
+AFFECTED_FILES = os.environ['AFFECTED_FILES']
+# ENDPOINT = 'valid'
+# AFFECTED_FILES = ["argocd/environments/prod/eu-central-1/1vapi-1/Dummy.md","argocd/environments/prod/eu-central-1/1vapi-2/Dummy.md"]
 
 def test():
     url = 'https://abdoo.free.beeceptor.com/'
